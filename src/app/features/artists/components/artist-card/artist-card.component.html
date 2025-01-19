@@ -1,0 +1,23 @@
+<div class="artist-card">
+  <h2>{{ artist.label }}</h2>
+  <div class="card-content">
+    <div class="events-section" *ngIf="artist.events?.length">
+      <h3>Events</h3>
+      <ul class="events-list">
+        <li *ngFor="let event of artist.events">
+          <span class="event-name">{{ event.label }}</span>
+          <span class="event-dates">
+            {{ event.startDate | date : "shortDate" }} -
+            {{ event.endDate | date : "shortDate" }}
+          </span>
+        </li>
+      </ul>
+      <div class="events-count" *ngIf="artist.events.length > 3">
+        And {{ artist.events.length - 3 }} more...
+      </div>
+    </div>
+    <div class="no-events" *ngIf="!artist.events?.length">
+      No events scheduled
+    </div>
+  </div>
+</div>

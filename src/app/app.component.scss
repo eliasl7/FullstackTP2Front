@@ -1,0 +1,36 @@
+// src/app/app.component.scss
+.main-nav {
+  background-color: #2c3e50;
+  padding: 1rem 0;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 2rem;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &.active {
+      color: #3498db;
+    }
+  }
+}
+
+main {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+}
