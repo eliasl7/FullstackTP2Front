@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RangePipe } from './pipes/range.pipe';
-import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
-  declarations: [RangePipe, ModalComponent],
+  declarations: [RangePipe],
   imports: [CommonModule],
-  exports: [RangePipe, ModalComponent, CommonModule],
+  exports: [RangePipe, CommonModule],
 })
 export class SharedModule {}

@@ -11,7 +11,6 @@ import { PageInfo } from '../../../models/pagination.model';
 export class EventsListComponent implements OnInit {
   events: Event[] = [];
   pageInfo: PageInfo<Event>;
-  showCreateModal = false;
   currentPage = 0;
   pageSize = 10;
 
@@ -29,20 +28,6 @@ export class EventsListComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading events:', error);
-        // Gérer l'erreur plus tard
-      },
-    });
-  }
-
-  onEventSave(event: Event): void {
-    this.eventService.createEvent(event).subscribe({
-      next: () => {
-        this.showCreateModal = false;
-        this.loadEvents(); // Rafraîchir la liste
-      },
-      error: (error) => {
-        console.error('Error creating event:', error);
-        // Gérer l'erreur plus tard
       },
     });
   }
