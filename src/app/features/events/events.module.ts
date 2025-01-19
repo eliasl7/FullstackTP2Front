@@ -8,7 +8,11 @@ import { SharedModule } from '../../shared/shared.module';
 import { EventDetailsComponent } from './pages/event-details.component';
 
 @NgModule({
-  declarations: [EventsListComponent, EventCardComponent, EventDetailsComponent],
+  declarations: [
+    EventsListComponent,
+    EventCardComponent,
+    EventDetailsComponent,
+  ],
   imports: [
     CommonModule,
     EventsRoutingModule,
