@@ -1,59 +1,84 @@
 <div class="artists-container">
-    <div class="artists-header">
-      <h1>Artists</h1>
-      <div class="search-container">
-        <input
-          type="text"
-          [formControl]="searchControl"
-          placeholder="Search artists..."
-          class="search-input"
-        />
+  <div class="artists-header">
+    <h1>Artists</h1>
+    <div class="search-container">
+      <input
+        type="text"
+        [formControl]="searchControl"
+        placeholder="Search artists..."
+        class="search-input"
+      />
+    </div>
+  </div>
+
+  <div class="loading-state" *ngIf="loading">Loading artists...</div>
+
+  <div class="error-message" *ngIf="error">
+    {{ error }}
+    <button (click)="loadArtists()">Retry</button>
+  </div>
+
+  <div class="artists-grid" *ngIf="!loading && !error">
+    <div *ngFor="let artist of artists" class="artist-card">
+      <div class="artist-header">
+        <h2>{{ artist.label }}</h2>
       </div>
-    </div>
-  
-    <div class="loading-state" *ngIf="loading">Loading artists...</div>
-  
-    <div class="error-message" *ngIf="error">
-      {{ error }}
-      <button (click)="loadArtists()">Retry</button>
-    </div>
-  
-    <div class="artists-grid" *ngIf="!loading && !error">
-      <div *ngFor="let artist of artists" class="artist-card">
-        <div class="artist-header">
-          <h2>{{ artist.label }}</h2>
-        </div>
-  
-        <div class="artist-events" *ngIf="artist.events?.length">
-          <h3>Events ({{ artist.events.length }})</h3>
-          <ul>
-            <li *ngFor="let event of artist.events.slice(0, 3)">
-              {{ event.label }}
-            </li>
-          </ul>
-          <p *ngIf="artist.events.length > 3" class="more-events">
-            And {{ artist.events.length - 3 }} more...
-          </p>
-        </div>
-  
-        <button class="details-btn" (click)="viewArtistDetails(artist.id)">
-          View Details
-        </button>
+
+      <div class="artist-events" *ngIf="artist.events?.length">
+        <h3>Events ({{ artist.events.length }})</h3>
+        <ul>
+          <li *ngFor="let event of artist.events.slice(0, 3)">
+            {{ event.label }}
+          </li>
+        </ul>
+        <p *ngIf="artist.events.length > 3" class="more-events">
+          And {{ artist.events.length - 3 }} more...
+        </p>
       </div>
-    </div>
-  
-    <div class="no-results" *ngIf="!loading && !error && artists.length === 0">
-      No artists found{{ searchControl.value ? " matching your search" : "" }}
-    </div>
-  
-    <div class="pagination" *ngIf="pageInfo?.totalPages > 1">
-      <button
-        *ngFor="let page of pageInfo.totalPages | range"
-        [class.active]="page === currentPage"
-        (click)="onPageChange(page)"
-        class="page-btn"
-      >
-        {{ page + 1 }}
+
+      <button class="details-btn" (click)="viewArtistDetails(artist.id)">
+        View Details
       </button>
     </div>
   </div>
+
+  <div class="no-results" *ngIf="!loading && !error && artists.length === 0">
+    No artists found{{ searchControl.value ? " matching your search" : "" }}
+  </div>
+
+  <div class="pagination-container" *ngIf="pageInfo?.totalPages > 1">
+    <div class="pagination">
+      <button
+        class="page-btn"
+        [disabled]="currentPage === 0"
+        (click)="onPageChange(currentPage - 1)"
+      >
+        Previous
+      </button>
+
+      <button
+        *ngFor="let page of pageInfo.totalPages | range"
+        class="page-btn"
+        [class.active]="page === currentPage"
+        (click)="onPageChange(page)"
+      >
+        {{ page + 1 }}
+      </button>
+
+      <button
+        class="page-btn"
+        [disabled]="currentPage === pageInfo.totalPages - 1"
+        (click)="onPageChange(currentPage + 1)"
+      >
+        Next
+      </button>
+    </div>
+
+    <div class="page-info">
+      Page {{ currentPage + 1 }} of {{ pageInfo.totalPages }} ({{
+        pageInfo.totalElements
+      }}
+      total items)
+    </div>
+  </div>
+</div>
