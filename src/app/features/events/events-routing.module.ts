@@ -7,6 +7,10 @@ const routes: Routes = [
     path: '',
     component: EventsListComponent,
   },
+  /*{
+    path: ':id',
+    component: EventDetailsComponent,
+  },*/
 ];
 
 @NgModule({
