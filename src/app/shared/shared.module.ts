@@ -5,6 +5,6 @@ import { RangePipe } from './pipes/range.pipe';
 @NgModule({
   declarations: [RangePipe],
   imports: [CommonModule],
-  exports: [RangePipe],
+  exports: [CommonModule, RangePipe],
 })
 export class SharedModule {}
