@@ -1,1 +1,86 @@
-<p>artist-details works!</p>
+<div class="artist-details-container">
+    <div *ngIf="loading" class="loading-state">Loading artist details...</div>
+  
+    <div *ngIf="error" class="error-message">
+      {{ error }}
+      <button (click)="loadArtist()">Retry</button>
+    </div>
+  
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+  
+    <div *ngIf="!loading && !error && artist" class="artist-content">
+      <div class="header">
+        <button class="back-btn" (click)="navigateToList()">
+          ← Back to list
+        </button>
+        <button class="edit-btn" (click)="editMode = !editMode">
+          {{ editMode ? "Cancel" : "Edit" }}
+        </button>
+      </div>
+  
+      <div *ngIf="!editMode" class="artist-info">
+        <h1>{{ artist.label }}</h1>
+      </div>
+  
+      <form
+        *ngIf="editMode"
+        [formGroup]="artistForm"
+        (ngSubmit)="onSubmit()"
+        class="edit-form"
+      >
+        <div class="form-group">
+          <label for="label">Artist Name</label>
+          <input
+            id="label"
+            type="text"
+            formControlName="label"
+            [class.error]="
+              artistForm.get('label').invalid && artistForm.get('label').touched
+            "
+          />
+  
+          <div
+            class="validation-error"
+            *ngIf="
+              artistForm.get('label').invalid && artistForm.get('label').touched
+            "
+          >
+            <span *ngIf="artistForm.get('label').errors?.['required']">
+              Name is required
+            </span>
+            <span *ngIf="artistForm.get('label').errors?.['minlength']">
+              Name must be at least 3 characters
+            </span>
+          </div>
+        </div>
+  
+        <div class="form-actions">
+          <button type="submit" [disabled]="artistForm.invalid">
+            Save Changes
+          </button>
+        </div>
+      </form>
+  
+      <div class="events-section">
+        <h2>Events</h2>
+        <div class="events-list">
+          <div *ngIf="artist.events?.length === 0" class="no-events">
+            No events associated with this artist
+          </div>
+  
+          <div *ngFor="let event of artist.events" class="event-item">
+            <div class="event-info">
+              <h3>{{ event.label }}</h3>
+              <div class="event-dates">
+                <span>{{ event.startDate | date }}</span>
+                <span> - </span>
+                <span>{{ event.endDate | date }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
