@@ -81,6 +81,54 @@
             </div>
           </div>
         </div>
+        <div class="events-section">
+          <h2>Events</h2>
+  
+          <div class="events-list">
+            <div *ngIf="artist.events?.length === 0" class="no-events">
+              No events associated with this artist
+            </div>
+  
+            <div *ngFor="let event of artist.events" class="event-item">
+              <div class="event-info">
+                <h3>{{ event.label }}</h3>
+                <div class="event-dates">
+                  <span>{{ event.startDate | date }}</span>
+                  <span> - </span>
+                  <span>{{ event.endDate | date }}</span>
+                </div>
+              </div>
+              <button class="remove-btn" (click)="leaveEvent(event.id)">
+                Leave Event
+              </button>
+            </div>
+          </div>
+  
+          <div class="add-event-section">
+            <h3>Available Events</h3>
+            <div class="available-events">
+              <div
+                *ngFor="let event of availableEvents"
+                class="event-item"
+                [class.unavailable]="isEventLinked(event.id)"
+              >
+                <div class="event-info">
+                  <h4>{{ event.label }}</h4>
+                  <div class="event-dates">
+                    {{ event.startDate | date }} - {{ event.endDate | date }}
+                  </div>
+                </div>
+                <button
+                  class="join-btn"
+                  (click)="joinEvent(event.id)"
+                  [disabled]="isEventLinked(event.id)"
+                >
+                  {{ isEventLinked(event.id) ? "Already Joined" : "Join Event" }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

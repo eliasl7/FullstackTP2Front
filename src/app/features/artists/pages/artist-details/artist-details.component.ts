@@ -97,4 +97,30 @@ export class ArtistDetailsComponent implements OnInit {
     this.successMessage = message;
     setTimeout(() => (this.successMessage = null), 3000);
   }
+
+  joinEvent(eventId: string): void {
+    if (!eventId) return;
+
+    this.eventService.addArtistToEvent(eventId, this.artist.id).subscribe({
+      next: () => {
+        this.loadArtist();
+        this.showSuccess('Event added successfully!');
+      },
+      error: () => {
+        this.error = 'Failed to add event';
+      },
+    });
+  }
+
+  leaveEvent(eventId: string): void {
+    this.eventService.removeArtistFromEvent(eventId, this.artist.id).subscribe({
+      next: () => {
+        this.loadArtist();
+        this.showSuccess('Event removed successfully!');
+      },
+      error: () => {
+        this.error = 'Failed to remove event';
+      },
+    });
+  }
 }
