@@ -1,0 +1,15 @@
+<div class="notifications-container">
+  <div
+    *ngFor="let notification of notifications"
+    class="notification"
+    [class.error]="notification.type === 'error'"
+    [class.success]="notification.type === 'success'"
+  >
+    <div class="notification-content">
+      {{ notification.message }}
+    </div>
+    <button class="close-btn" (click)="removeNotification(notification)">
+      ×
+    </button>
+  </div>
+</div>
