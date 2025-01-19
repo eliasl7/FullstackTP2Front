@@ -1,27 +1,90 @@
-# EventArtistManager
+# TP2 Full Stack
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+Une application web Angular permettant la gestion d'événements et d'artistes, avec la possibilité de les lier entre eux.
 
-## Development server
+## Fonctionnalités
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Gestion des Événements
 
-## Code scaffolding
+- Liste paginée des événements
+- Détail d'un événement
+- Modification des informations d'un événement (nom, dates)
+- Association/Dissociation d'artistes à un événement
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Gestion des Artistes
 
-## Build
+- Liste paginée des artistes avec recherche
+- Détail d'un artiste
+- Modification des informations d'un artiste
+- Vue des événements associés
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Fonctionnalités Techniques
 
-## Running unit tests
+- Validation des formulaires côté client
+- Gestion globale des erreurs avec notifications
+- Interface responsive
+- Pagination des listes
+- Transitions et animations pour une meilleure expérience utilisateur
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Prérequis
 
-## Running end-to-end tests
+- Node.js (version 14 ou supérieure)
+- Angular CLI (version 16)
+- Java 17 (pour l'API)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Installation
 
-## Further help
+1. Cloner le projet
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+git clone https://github.com/eliasl7/FullstackTP2Front.git
+```
+
+2. Installer les dépendances
+
+```bash
+npm install
+```
+
+3. Lancer l'API (dans un terminal séparé, pas présente non plus sur le dépôt)
+
+```bash
+java -jar event-0.0.1-SNAPSHOT.jar
+```
+
+4. Lancer l'application Angular
+
+```bash
+ng serve
+```
+
+L'application sera accessible à l'adresse `http://localhost:4200`
+
+## Données de test
+
+Pour générer des données de test, utilisez le script PowerShell fourni :
+
+```powershell
+.\scripts\create-test-data.ps1
+```
+
+## Gestion des Erreurs
+
+L'application gère les erreurs suivantes :
+
+- 400: Requête invalide
+- 401: Non authentifié
+- 403: Non autorisé
+- 404: Ressource non trouvée
+- 500: Erreur serveur
+
+## Validation des Formulaires
+
+- Nom (événement/artiste) : minimum 3 caractères
+- Dates d'événement : la date de fin doit être postérieure à la date de début
+- Tous les champs obligatoires sont marqués visuellement
+
+## Auteurs
+
+- Elias Larbi
+- Zine-Eddine Toubal

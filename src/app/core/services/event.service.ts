@@ -35,4 +35,17 @@ export class EventService {
   deleteEvent(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  addArtistToEvent(eventId: string, artistId: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.apiUrl}/${eventId}/artists/${artistId}`,
+      {}
+    );
+  }
+
+  removeArtistFromEvent(eventId: string, artistId: string): Observable<void> {
+    return this.http.delete<void>(
+      `${this.apiUrl}/${eventId}/artists/${artistId}`
+    );
+  }
 }

@@ -1,14 +1,5 @@
-<nav class="main-nav">
-  <div class="container">
-    <ul>
-      <li><a routerLink="/events" routerLinkActive="active">Events</a></li>
-      <li><a routerLink="/artists" routerLinkActive="active">Artists</a></li>
-    </ul>
-  </div>
-</nav>
-
-<main>
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
+<app-header></app-header>
+<main class="container mt-4">
+  <router-outlet></router-outlet>
 </main>
+<app-notification></app-notification>

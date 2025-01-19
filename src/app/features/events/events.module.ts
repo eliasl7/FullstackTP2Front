@@ -5,9 +5,14 @@ import { EventsRoutingModule } from './events-routing.module';
 import { EventsListComponent } from './pages/events-list.component';
 import { EventCardComponent } from './components/event-card/event-card.component';
 import { SharedModule } from '../../shared/shared.module';
+import { EventDetailsComponent } from './pages/event-details.component';
 
 @NgModule({
-  declarations: [EventsListComponent, EventCardComponent],
+  declarations: [
+    EventsListComponent,
+    EventCardComponent,
+    EventDetailsComponent,
+  ],
   imports: [
     CommonModule,
     EventsRoutingModule,

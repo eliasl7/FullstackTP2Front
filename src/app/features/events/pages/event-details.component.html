@@ -1,0 +1,131 @@
+<div class="event-details-container">
+  <div *ngIf="loading" class="loading">Loading event details...</div>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+    <button (click)="loadEvent()">Retry</button>
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="!loading && !error && event" class="event-content">
+    <div class="header">
+      <button class="back-btn" (click)="navigateToList()">
+        ← Back to list
+      </button>
+      <button class="edit-btn" (click)="toggleEditMode()">
+        {{ editMode ? "Cancel" : "Edit" }}
+      </button>
+    </div>
+
+    <div *ngIf="!editMode" class="event-info">
+      <h1>{{ event.label }}</h1>
+      <div class="dates">
+        <p>From: {{ event.startDate | date : "fullDate" }}</p>
+        <p>To: {{ event.endDate | date : "fullDate" }}</p>
+      </div>
+    </div>
+
+    <form
+      *ngIf="editMode"
+      [formGroup]="eventForm"
+      (ngSubmit)="onSubmit()"
+      class="edit-form"
+    >
+      <div class="form-group">
+        <label for="label">Event Name</label>
+        <input id="label" type="text" formControlName="label" />
+        <div
+          *ngIf="
+            eventForm.get('label')?.invalid && eventForm.get('label')?.touched
+          "
+          class="error-message"
+        >
+          <span *ngIf="eventForm.get('label')?.errors?.['required']"
+            >Name is required</span
+          >
+          <span *ngIf="eventForm.get('label')?.errors?.['minlength']"
+            >Name must be at least 3 characters</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="startDate">Start Date</label>
+        <input id="startDate" type="date" formControlName="startDate" />
+        <div
+          *ngIf="
+            eventForm.get('startDate')?.invalid &&
+            eventForm.get('startDate')?.touched
+          "
+          class="error-message"
+        >
+          <span *ngIf="eventForm.get('startDate')?.errors?.['required']"
+            >Start date is required</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="endDate">End Date</label>
+        <input id="endDate" type="date" formControlName="endDate" />
+        <div
+          *ngIf="
+            eventForm.get('endDate')?.invalid &&
+            eventForm.get('endDate')?.touched
+          "
+          class="error-message"
+        >
+          <span *ngIf="eventForm.get('endDate')?.errors?.['required']"
+            >End date is required</span
+          >
+        </div>
+      </div>
+
+      <div *ngIf="eventForm.errors?.['dateRange']" class="error-message">
+        End date must be after start date
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="eventForm.invalid">
+          Save Changes
+        </button>
+      </div>
+    </form>
+
+    <div class="artists-section">
+      <h2>Artists</h2>
+
+      <div class="artists-list">
+        <div *ngFor="let artist of event.artists" class="artist-item">
+          <span>{{ artist.label }}</span>
+          <button class="remove-btn" (click)="removeArtist(artist.id)">
+            Remove
+          </button>
+        </div>
+      </div>
+
+      <form [formGroup]="eventForm" class="add-artist">
+        <select formControlName="selectedArtistId">
+          <option value="">Select an artist</option>
+          <option
+            *ngFor="let artist of availableArtists"
+            [value]="artist.id"
+            [disabled]="isArtistInEvent(artist.id)"
+          >
+            {{ artist.label }}
+          </option>
+        </select>
+        <button
+          type="button"
+          (click)="addArtist()"
+          [disabled]="!eventForm.get('selectedArtistId').value"
+        >
+          Add Artist
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
