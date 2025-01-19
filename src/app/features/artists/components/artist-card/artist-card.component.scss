@@ -1,0 +1,62 @@
+.artist-card {
+  background: white;
+  border-radius: 4px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+    color: #2c3e50;
+  }
+
+  .card-content {
+    font-size: 0.9em;
+
+    h3 {
+      font-size: 1em;
+      color: #7f8c8d;
+      margin: 10px 0;
+    }
+
+    .events-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        padding: 5px 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        .event-name {
+          font-weight: 500;
+        }
+
+        .event-dates {
+          color: #7f8c8d;
+          font-size: 0.9em;
+        }
+      }
+    }
+
+    .events-count {
+      margin-top: 10px;
+      color: #95a5a6;
+      font-style: italic;
+    }
+
+    .no-events {
+      color: #95a5a6;
+      font-style: italic;
+      text-align: center;
+      padding: 10px 0;
+    }
+  }
+}

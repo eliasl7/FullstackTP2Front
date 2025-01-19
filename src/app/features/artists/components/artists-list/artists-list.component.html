@@ -1,0 +1,18 @@
+<div class="artists-container">
+  <h1>Artists</h1>
+
+  <div class="artists-grid">
+    <app-artist-card *ngFor="let artist of artists" [artist]="artist">
+    </app-artist-card>
+  </div>
+
+  <div class="pagination" *ngIf="pageInfo">
+    <button
+      *ngFor="let page of pageInfo.totalPages | range"
+      [class.active]="page === pageInfo.number"
+      (click)="loadArtists(page)"
+    >
+      {{ page + 1 }}
+    </button>
+  </div>
+</div>
