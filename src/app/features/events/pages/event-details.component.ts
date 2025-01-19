@@ -19,6 +19,7 @@ export class EventDetailsComponent implements OnInit {
   loading = true;
   error: string = null;
   successMessage: string = null;
+  selectedArtistId: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class EventDetailsComponent implements OnInit {
         label: ['', [Validators.required, Validators.minLength(3)]],
         startDate: ['', Validators.required],
         endDate: ['', Validators.required],
+        selectedArtistId: [''],
       },
       { validator: this.dateRangeValidator }
     );
@@ -40,6 +42,10 @@ export class EventDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.loadEvent();
     this.loadAvailableArtists();
+  }
+
+  onArtistSelect(value: string): void {
+    this.selectedArtistId = value;
   }
 
   private loadEvent(): void {
@@ -105,7 +111,8 @@ export class EventDetailsComponent implements OnInit {
     return this.event?.artists?.some((a) => a.id === artistId) || false;
   }
 
-  addArtist(artistId: string): void {
+  addArtist(): void {
+    const artistId = this.eventForm.get('selectedArtistId').value;
     if (!artistId) return;
 
     this.eventService.addArtistToEvent(this.event.id, artistId).subscribe({
@@ -113,6 +120,7 @@ export class EventDetailsComponent implements OnInit {
         this.loadEvent();
         this.successMessage = 'Artist added successfully!';
         setTimeout(() => (this.successMessage = null), 3000);
+        this.eventForm.patchValue({ selectedArtistId: '' }); // Reset la sélection
       },
       error: () => {
         this.error = 'Failed to add artist to event';

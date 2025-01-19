@@ -107,8 +107,8 @@
         </div>
       </div>
 
-      <div class="add-artist">
-        <select #artistSelect>
+      <form [formGroup]="eventForm" class="add-artist">
+        <select formControlName="selectedArtistId">
           <option value="">Select an artist</option>
           <option
             *ngFor="let artist of availableArtists"
@@ -119,12 +119,13 @@
           </option>
         </select>
         <button
-          (click)="addArtist(artistSelect.value)"
-          [disabled]="!artistSelect.value"
+          type="button"
+          (click)="addArtist()"
+          [disabled]="!eventForm.get('selectedArtistId').value"
         >
           Add Artist
         </button>
-      </div>
+      </form>
     </div>
   </div>
 </div>
