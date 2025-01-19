@@ -1,0 +1,35 @@
+<div class="events-container">
+  <div class="events-header">
+    <h1>Events</h1>
+    <button class="btn-create" (click)="showCreateModal = true">
+      Create Event
+    </button>
+  </div>
+
+  <div class="events-grid">
+    <app-event-card *ngFor="let event of events" [event]="event">
+    </app-event-card>
+  </div>
+
+  <div class="pagination" *ngIf="pageInfo?.totalPages">
+    <button
+      *ngFor="let page of pageInfo.totalPages | range"
+      [class.active]="page === currentPage"
+      (click)="onPageChange(page)"
+    >
+      {{ page + 1 }}
+    </button>
+  </div>
+
+  <app-modal
+    [showModal]="showCreateModal"
+    (close)="showCreateModal = false"
+    title="Create Event"
+  >
+    <app-event-form
+      (save)="onEventSave($event)"
+      (cancel)="showCreateModal = false"
+    >
+    </app-event-form>
+  </app-modal>
+</div>
