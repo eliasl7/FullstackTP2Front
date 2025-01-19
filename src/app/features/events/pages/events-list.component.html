@@ -1,17 +1,33 @@
 <div class="events-container">
-  <div class="events-header">
-    <h1>Events</h1>
-    <button class="btn-create" (click)="showCreateModal = true">
-      Create Event
-    </button>
-  </div>
+  <h1>Events</h1>
 
   <div class="events-grid">
-    <app-event-card *ngFor="let event of events" [event]="event">
-    </app-event-card>
+    <div *ngFor="let event of events" class="event-card">
+      <div class="event-header">
+        <h2>{{ event.label }}</h2>
+      </div>
+      <div class="event-dates">
+        <p>From: {{ event.startDate | date : "mediumDate" }}</p>
+        <p>To: {{ event.endDate | date : "mediumDate" }}</p>
+      </div>
+      <div class="event-artists" *ngIf="event.artists?.length">
+        <h3>Artists ({{ event.artists.length }})</h3>
+        <ul>
+          <li *ngFor="let artist of event.artists.slice(0, 3)">
+            {{ artist.label }}
+          </li>
+        </ul>
+        <p *ngIf="event.artists.length > 3" class="more-artists">
+          And {{ event.artists.length - 3 }} more...
+        </p>
+      </div>
+      <button class="details-btn" (click)="viewEventDetails(event.id)">
+        View Details
+      </button>
+    </div>
   </div>
 
-  <div class="pagination" *ngIf="pageInfo?.totalPages">
+  <div class="pagination" *ngIf="pageInfo?.totalPages > 1">
     <button
       *ngFor="let page of pageInfo.totalPages | range"
       [class.active]="page === currentPage"
@@ -20,16 +36,4 @@
       {{ page + 1 }}
     </button>
   </div>
-
-  <app-modal
-    [showModal]="showCreateModal"
-    (close)="showCreateModal = false"
-    title="Create Event"
-  >
-    <app-event-form
-      (save)="onEventSave($event)"
-      (cancel)="showCreateModal = false"
-    >
-    </app-event-form>
-  </app-modal>
 </div>

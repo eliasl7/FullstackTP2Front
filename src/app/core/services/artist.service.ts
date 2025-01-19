@@ -13,10 +13,18 @@ export class ArtistService {
 
   constructor(private http: HttpClient) {}
 
-  getArtists(page = 0, size = 10): Observable<PageInfo<Artist>> {
-    const params = new HttpParams()
+  getArtists(
+    page = 0,
+    size = 10,
+    searchTerm?: string
+  ): Observable<PageInfo<Artist>> {
+    let params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString());
+
+    if (searchTerm) {
+      params = params.set('label', searchTerm);
+    }
 
     return this.http.get<PageInfo<Artist>>(this.apiUrl, { params });
   }
