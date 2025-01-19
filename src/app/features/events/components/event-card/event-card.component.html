@@ -1,0 +1,15 @@
+<div class="event-card">
+  <h2>{{ event.label }}</h2>
+  <div class="event-dates">
+    <p>Start: {{ event.startDate | date }}</p>
+    <p>End: {{ event.endDate | date }}</p>
+  </div>
+  <div class="event-artists" *ngIf="event.artists?.length">
+    <h3>Artists:</h3>
+    <ul>
+      <li *ngFor="let artist of event.artists">
+        {{ artist.label }}
+      </li>
+    </ul>
+  </div>
+</div>
