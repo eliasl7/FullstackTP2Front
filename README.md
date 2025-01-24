@@ -65,7 +65,7 @@ L'application sera accessible à l'adresse `http://localhost:4200`
 Pour générer des données de test, utilisez le script PowerShell fourni :
 
 ```powershell
-.\scripts\create-test-data.ps1
+.\create-test-data.ps1
 ```
 
 ## Gestion des Erreurs
